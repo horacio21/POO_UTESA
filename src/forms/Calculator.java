@@ -1,5 +1,6 @@
 package forms;
 
+import java.awt.Color;
 import javax.swing.JOptionPane;
 
 /**
@@ -8,15 +9,69 @@ import javax.swing.JOptionPane;
  */
 public class Calculator extends javax.swing.JFrame {
 
+    float a = 0, b = 0, c = 0;
+    
     public Calculator() {
         initComponents();
-        JOptionPane.showMessageDialog(null, "Hola Mundo!");
+        this.setLocationRelativeTo(null);
+        firstValueText.setBackground(Color.yellow);
+    }
+    
+    public void go(){
+        if (sumRadio.isSelected()) {
+            sum();
+        }
+        if (restRadio.isSelected()) {
+            rest();
+        }
+        if (multiplicationRadio.isSelected()) {
+            multiplication();
+        }
+        if (divisionRadio.isSelected()) {
+            division();
+        }
+    }
+    
+    public void sum(){
+        a = Float.parseFloat(firstValueText.getText());
+        b = Float.parseFloat(secondValueText.getText());
+            
+        resultText.setText(String.valueOf(a + b));
+    }
+    
+    public void rest(){
+        a = Float.parseFloat(firstValueText.getText());
+        b = Float.parseFloat(secondValueText.getText());
+            
+        resultText.setText(String.valueOf(a - b));
+    }
+    
+    public void multiplication(){
+        a = Float.parseFloat(firstValueText.getText());
+        b = Float.parseFloat(secondValueText.getText());
+            
+        resultText.setText(String.valueOf(a * b));
+    }
+
+    public void division(){
+        if (b == 0) {
+            JOptionPane.showMessageDialog(null, "The second value cannot be ZERO for divisions.");
+            secondValueText.setText("");
+            resultText.setText("");
+            return;
+        }
+
+        a = Float.parseFloat(firstValueText.getText());
+        b = Float.parseFloat(secondValueText.getText());
+
+        resultText.setText(String.valueOf(a / b));
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         firstValueText = new javax.swing.JTextField();
         secondValueText = new javax.swing.JTextField();
@@ -24,6 +79,12 @@ public class Calculator extends javax.swing.JFrame {
         secondValueLabel = new javax.swing.JLabel();
         resultLabel = new javax.swing.JLabel();
         resultText = new javax.swing.JTextField();
+        goButton = new javax.swing.JButton();
+        sumRadio = new javax.swing.JRadioButton();
+        multiplicationRadio = new javax.swing.JRadioButton();
+        restRadio = new javax.swing.JRadioButton();
+        divisionRadio = new javax.swing.JRadioButton();
+        closeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,9 +108,36 @@ public class Calculator extends javax.swing.JFrame {
 
         resultLabel.setText("Result:");
 
+        resultText.setEditable(false);
         resultText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resultTextActionPerformed(evt);
+            }
+        });
+
+        goButton.setText("Go");
+        goButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                goButtonActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(sumRadio);
+        sumRadio.setText("Sum");
+
+        buttonGroup1.add(multiplicationRadio);
+        multiplicationRadio.setText("Multiplication");
+
+        buttonGroup1.add(restRadio);
+        restRadio.setText("Rest");
+
+        buttonGroup1.add(divisionRadio);
+        divisionRadio.setText("Division");
+
+        closeButton.setText("Close");
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeButtonActionPerformed(evt);
             }
         });
 
@@ -71,7 +159,17 @@ public class Calculator extends javax.swing.JFrame {
                         .addComponent(resultLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(resultText)))
-                .addContainerGap(364, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(sumRadio)
+                    .addComponent(multiplicationRadio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(goButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(36, 36, 36)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(divisionRadio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(restRadio)
+                    .addComponent(closeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -79,15 +177,24 @@ public class Calculator extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(firstValueText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(firstValueLabel))
+                    .addComponent(firstValueLabel)
+                    .addComponent(sumRadio)
+                    .addComponent(restRadio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(secondValueText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(secondValueLabel))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(secondValueText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(secondValueLabel))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(multiplicationRadio)
+                        .addComponent(divisionRadio)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(resultText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(resultLabel))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(resultText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(resultLabel)
+                        .addComponent(goButton))
+                    .addComponent(closeButton))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
@@ -105,23 +212,63 @@ public class Calculator extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(198, Short.MAX_VALUE))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void firstValueTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstValueTextActionPerformed
-        // TODO add your handling code here:
+        if (firstValueText.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "The first value cannot be empty");
+            firstValueText.requestFocus(true);
+            firstValueText.setBackground(Color.yellow);
+        }
+        else{
+            secondValueText.requestFocus(true);
+            secondValueText.setBackground(Color.yellow);
+            firstValueText.setBackground(Color.WHITE);
+        }
     }//GEN-LAST:event_firstValueTextActionPerformed
 
     private void secondValueTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secondValueTextActionPerformed
-        // TODO add your handling code here:
+        if (secondValueText.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "The second value cannot be empty");
+            secondValueText.requestFocus(true);
+            secondValueText.setBackground(Color.yellow);
+        }
+        else{
+            resultText.requestFocus(true);
+            resultText.setBackground(Color.yellow);
+            secondValueText.setBackground(Color.WHITE);
+        }
     }//GEN-LAST:event_secondValueTextActionPerformed
 
     private void resultTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultTextActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_resultTextActionPerformed
+
+    private void goButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goButtonActionPerformed
+        if (firstValueText.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "The first value cannot be empty");
+            firstValueText.requestFocus(true);
+            firstValueText.setBackground(Color.yellow);
+            secondValueText.setBackground(Color.WHITE);
+            return;
+        }
+        if (secondValueText.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "The second value cannot be empty");
+            secondValueText.requestFocus(true);
+            firstValueText.setBackground(Color.WHITE);
+            secondValueText.setBackground(Color.yellow);
+            return;
+        }
+        go();
+    }//GEN-LAST:event_goButtonActionPerformed
+
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_closeButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,12 +306,19 @@ public class Calculator extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton closeButton;
+    private javax.swing.JRadioButton divisionRadio;
     private javax.swing.JLabel firstValueLabel;
     private javax.swing.JTextField firstValueText;
+    private javax.swing.JButton goButton;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton multiplicationRadio;
+    private javax.swing.JRadioButton restRadio;
     private javax.swing.JLabel resultLabel;
     private javax.swing.JTextField resultText;
     private javax.swing.JLabel secondValueLabel;
     private javax.swing.JTextField secondValueText;
+    private javax.swing.JRadioButton sumRadio;
     // End of variables declaration//GEN-END:variables
 }
